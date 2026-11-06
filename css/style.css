@@ -109,7 +109,7 @@ a:hover { color: var(--ink); }
 .btn-sm:active { box-shadow: 0 1px 0 var(--accent-deep); }
 
 /* ============ Hero ============ */
-.hero { padding: 6.5rem 0 5rem; }
+.hero { padding: 4rem 0 3rem; }
 .hero .container { text-align: center; }
 .hero h1 {
   font-size: clamp(2.4rem, 6vw, 4rem);
@@ -123,11 +123,11 @@ a:hover { color: var(--ink); }
   font-weight: 700;
 }
 .lede { color: var(--muted); font-size: 1.12rem; max-width: 34rem; }
-.hero .lede { margin-inline: auto; margin-bottom: 2.2rem; }
+.hero .lede { margin-inline: auto; margin-bottom: 1.5rem; }
 .hero-links { list-style: none; display: flex; justify-content: center; gap: 0.9rem; flex-wrap: wrap; }
 .hero-stats {
   list-style: none; display: flex; justify-content: center;
-  gap: 0; margin-top: 2.5rem;
+  gap: 0; margin-top: 1.5rem;
 }
 .hero-stats li {
   display: flex; align-items: baseline; gap: 0.45rem;
@@ -143,8 +143,8 @@ a:hover { color: var(--ink); }
 .section .hero-stats { margin-top: -1.2rem; margin-bottom: 2rem; }
 
 /* ============ Secties ============ */
-.section { padding: 4.5rem 0; }
-.section-title { font-size: clamp(2.3rem, 5.5vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 2.4rem; text-align: center; }
+.section { padding: 3rem 0; }
+.section-title { font-size: clamp(2.3rem, 5.5vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.6rem; text-align: center; }
 
 /* ============ Projectkaarten: dikte + hover-tilt ============ */
 .group-label {
@@ -154,10 +154,10 @@ a:hover { color: var(--ink); }
   display: flex; align-items: center; justify-content: center; gap: 0.5rem;
 }
 .group-label i { font-size: 1.5rem; }
-.group-label-private { color: var(--muted); }
+.group-label-private { color: var(--gold); }
 .work-split {
   display: grid; grid-template-columns: 1fr;
-  gap: 2.5rem; align-items: start;
+  gap: 1.75rem; align-items: start;
   max-width: 54rem; margin-inline: auto;
 }
 .work-col {
@@ -218,13 +218,17 @@ a:hover { color: var(--ink); }
 .p-link i { font-size: 1rem; }
 
 /* ============ About ============ */
-.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3.5rem; align-items: start; max-width: 72rem; margin-inline: auto; }
+.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.25rem; align-items: start; max-width: 72rem; margin-inline: auto; }
 .about-lede {
   font-size: clamp(1.3rem, 3.2vw, 1.6rem); font-weight: 700; letter-spacing: -0.01em;
   line-height: 1.35; margin-bottom: 1.4rem; color: var(--ink);
 }
 .about-grid > div > p { color: var(--muted); margin-bottom: 1.1rem; }
 .about-grid > div > p:last-child { margin-bottom: 0; }
+/* Slotzin van de about-tekst, bewust groter dan de paragrafen erboven */
+.about-punch { display: inline-block; font-size: 1.25rem; font-weight: 600; margin-top: 0.75rem; }
+/* Marker-stijl: donkere tekst op de acid lime accentkleur */
+.punch-marker { background: var(--accent-2); color: var(--bg); padding: 0.05rem 0.45rem; border-radius: 0.35rem; }
 .about-card-wrap { position: relative; }
 .sleeping-cat {
   position: absolute;
@@ -260,7 +264,7 @@ a:hover { color: var(--ink); }
   padding: 0.25rem 0 0.25rem 1.4rem;
   border-left: 2px solid var(--accent);
 }
-.timeline li + li { margin-top: 2rem; }
+.timeline li + li { margin-top: 1.4rem; }
 .t-when {
   font-family: var(--mono); font-size: 0.74rem;
   text-transform: uppercase; letter-spacing: 0.08em;
@@ -282,9 +286,9 @@ a:hover { color: var(--ink); }
 .award-list span { flex: none; color: var(--muted); font-family: var(--mono); font-size: 0.8rem; text-align: right; }
 
 /* ============ Contact ============ */
-.contact { padding-bottom: 6.5rem; }
+.contact { padding-bottom: 4rem; }
 .contact-title { font-size: clamp(2.3rem, 5.5vw, 3.4rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.9rem; text-align: center; }
-.contact .lede { margin-inline: auto; margin-bottom: 2.2rem; }
+.contact .lede { margin-inline: auto; margin-bottom: 1.5rem; }
 .contact-list { list-style: none; display: flex; justify-content: center; gap: 0.9rem; flex-wrap: wrap; }
 /* Paarse hover, net als de icoonknoppen in de header */
 .contact-list .btn-outline:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
@@ -313,8 +317,8 @@ a:hover { color: var(--ink); }
 
 /* ============ Mobiel ============ */
 @media (max-width: 700px) {
-  .hero { padding: 4.5rem 0 3.5rem; }
-  .section { padding: 3.25rem 0; }
+  .hero { padding: 3rem 0 2rem; }
+  .section { padding: 2.25rem 0; }
   .projects { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; }
 

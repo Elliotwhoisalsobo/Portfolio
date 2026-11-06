@@ -1,5 +1,7 @@
-// Achtergrond: subtiele paarse regenlijnen met Three.js
-const AANTAL = 50;        // aantal lijnen, bewust schaars
+// Achtergrond: subtiele paarse regenstrepen met Three.js
+// Geen LineBasicMaterial: die is altijd 1px dik in WebGL.
+// Daarom quads (2 driehoeken per streep), zodat de dikte instelbaar is.
+const AANTAL = 50;        // aantal strepen, bewust schaars
 const KLEUR = 0x8b7cff;   // accent violet uit style.css
 
 const scene = new THREE.Scene();
@@ -9,12 +11,13 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
 document.getElementById("bg-app").appendChild(renderer.domElement);
 
-// EEN LineSegments met 2 vertices per lijn: goedkoop te tekenen, makkelijk te verplaatsen
-const posities = new Float32Array(AANTAL * 6);
+// EEN mesh met 2 driehoeken per streep: goedkoop te tekenen, makkelijk te verplaatsen
+// 6 vertices x 3 coördinaten per streep
+const posities = new Float32Array(AANTAL * 18);
 const geometry = new THREE.BufferGeometry();
 geometry.setAttribute("position", new THREE.BufferAttribute(posities, 3));
-const materiaal = new THREE.LineBasicMaterial({ color: KLEUR, transparent: true, opacity: 0.25 });
-scene.add(new THREE.LineSegments(geometry, materiaal));
+const materiaal = new THREE.MeshBasicMaterial({ color: KLEUR, transparent: true, opacity: 0.25 });
+scene.add(new THREE.Mesh(geometry, materiaal));
 
 const regen = Array.from({ length: AANTAL }, () => {
   const val = 120 + Math.random() * 120; // valsnelheid in px/s, rustig
@@ -22,9 +25,9 @@ const regen = Array.from({ length: AANTAL }, () => {
     x: Math.random() * innerWidth,
     y: Math.random() * innerHeight,
     val,
-    drift: 8 + Math.random() * 14,        // bijpassende schuine helling
-    // korte sporen, zodat het stippelt maar wel leesbaar blijft
-    lengte: val * (0.08 + Math.random() * 0.05)
+    // vaste maat voor alle strepen, zodat het geuniformeerd stippelt
+    lengte: 18,
+    breedte: 3
   };
 });
 
@@ -32,16 +35,20 @@ function stap(dt) {
   for (let i = 0; i < AANTAL; i++) {
     const d = regen[i];
     d.y += d.val * dt;
-    d.x -= d.drift * dt;
-    if (d.y > innerHeight + 60) { d.y = -60; d.x = Math.random() * (innerWidth + 120); }
-    if (d.x < -120) d.x = innerWidth + 120;
+    if (d.y - d.lengte > innerHeight + 60) {
+      d.y = -60;
+      d.x = Math.random() * innerWidth;
+    }
 
-    // lijnstuk langs de bewegingsrichting, zodat het streepje "meebeweegt"
-    const s = Math.hypot(d.val, d.drift);
-    const ux = -d.drift / s, uy = d.val / s;
-    const o = i * 6;
-    posities[o] = d.x;              posities[o + 1] = d.y;            posities[o + 2] = 0;
-    posities[o + 3] = d.x + ux * d.lengte; posities[o + 4] = d.y + uy * d.lengte; posities[o + 5] = 0;
+    // verticale streep: quad van (x - b/2, y) tot (x + b/2, y - lengte)
+    const b = d.breedte / 2;
+    const o = i * 18;
+    posities[o]      = d.x - b; posities[o + 1]  = d.y;           posities[o + 2]  = 0;
+    posities[o + 3]  = d.x + b; posities[o + 4]  = d.y;           posities[o + 5]  = 0;
+    posities[o + 6]  = d.x + b; posities[o + 7]  = d.y - d.lengte; posities[o + 8]  = 0;
+    posities[o + 9]  = d.x - b; posities[o + 10] = d.y;           posities[o + 11] = 0;
+    posities[o + 12] = d.x + b; posities[o + 13] = d.y - d.lengte; posities[o + 14] = 0;
+    posities[o + 15] = d.x - b; posities[o + 16] = d.y - d.lengte; posities[o + 17] = 0;
   }
   geometry.attributes.position.needsUpdate = true;
 }
