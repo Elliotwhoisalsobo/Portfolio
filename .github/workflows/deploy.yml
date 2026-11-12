@@ -19,9 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inject Google Tag Manager snippet
+      - name: Inject analytics snippet
         env:
           GTM_CONTAINER_ID: ${{ secrets.GTM_CONTAINER_ID }}
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
         run: python3 scripts/inject-gtm.py
       - uses: actions/upload-pages-artifact@v3
         with:

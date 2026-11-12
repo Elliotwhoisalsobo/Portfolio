@@ -1,30 +1,36 @@
 #!/usr/bin/env python3
-"""Vervangt de placeholder in index.html door de Google Tag Manager snippet.
+"""Vervangt de placeholder in index.html door de analytics snippet.
 
-Leest GTM_CONTAINER_ID uit de omgeving. Bij deploy door GitHub Actions is dat
-een repository secret; lokaal komt het uit .env. Het ID komt nooit in de repo.
+Leest GTM_CONTAINER_ID en GA_MEASUREMENT_ID uit de omgeving. Bij deploy door
+GitHub Actions zijn dat repository secrets; lokaal komen ze uit .env. De IDs
+komen nooit in de repo.
 """
 import os
 import re
 import sys
 from pathlib import Path
 
-CID = os.environ.get("GTM_CONTAINER_ID", "").strip()
-if not CID:
-    sys.exit("GTM_CONTAINER_ID ontbreekt in de omgeving")
-if not CID.startswith("GTM-"):
-    sys.exit(f"Onverwacht ID: {CID} (moet beginnen met GTM-)")
+gtm = os.environ.get("GTM_CONTAINER_ID", "").strip()
+ga = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+if not gtm and not ga:
+    sys.exit("GTM_CONTAINER_ID of GA_MEASUREMENT_ID ontbreekt in de omgeving")
+if gtm and not gtm.startswith("GTM-"):
+    sys.exit(f"Onverwacht GTM ID: {gtm} (moet beginnen met GTM-)")
+if ga and not ga.startswith("G-"):
+    sys.exit(f"Onverwacht GA ID: {ga} (moet beginnen met G-)")
 
-snippet = (
-    "<!-- GOOGLE ANALYTICS -->\n"
-    '<script async src="https://www.googletagmanager.com/gtm.js?id=' + CID + '"></script>\n'
-    "<script>\n"
-    "  window.dataLayer = window.dataLayer || [];\n"
-    "  function gtag(){dataLayer.push(arguments);}\n"
-    "  gtag('js', new Date());\n"
-    "  gtag('config', '" + CID + "');\n"
-    "</script>"
-)
+# gtag.js is de drager voor zowel Google Analytics 4 als Tag Manager.
+snippet = "<!-- GOOGLE ANALYTICS -->\n"
+snippet += '<script async src="https://www.googletagmanager.com/gtag/js?id=' + (ga or gtm) + '"></script>\n'
+snippet += "<script>\n"
+snippet += "  window.dataLayer = window.dataLayer || [];\n"
+snippet += "  function gtag(){dataLayer.push(arguments);}\n"
+snippet += "  gtag('js', new Date());\n"
+if ga:
+    snippet += "  gtag('config', '" + ga + "');\n"
+if gtm:
+    snippet += "  gtag('config', '" + gtm + "');\n"
+snippet += "</script>"
 
 path = Path("index.html")
 html = path.read_text(encoding="utf-8")
@@ -35,4 +41,4 @@ if not matches:
 for match in reversed(matches):
     html = html[:match.start()] + snippet + html[match.end():]
 path.write_text(html, encoding="utf-8")
-print(f"GTM snippet geinjecteerd met {CID}")
+print(f"Analytics geinjecteerd: GTM={gtm or 'afwezig'}, GA={ga or 'afwezig'}")
