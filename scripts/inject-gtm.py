@@ -5,6 +5,7 @@ Leest GTM_CONTAINER_ID uit de omgeving. Bij deploy door GitHub Actions is dat
 een repository secret; lokaal komt het uit .env. Het ID komt nooit in de repo.
 """
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -27,7 +28,11 @@ snippet = (
 
 path = Path("index.html")
 html = path.read_text(encoding="utf-8")
-if "<!-- GTM_INJECT -->" not in html:
+# Accepteert elke commentaarregel die met GTM_INJECT begint, ongeacht de verdere tekst.
+matches = list(re.finditer(r"<!--\s*GTM_INJECT[^>]*-->", html))
+if not matches:
     sys.exit("Placeholder <!-- GTM_INJECT --> niet gevonden in index.html")
-path.write_text(html.replace("<!-- GTM_INJECT -->", snippet), encoding="utf-8")
+for match in reversed(matches):
+    html = html[:match.start()] + snippet + html[match.end():]
+path.write_text(html, encoding="utf-8")
 print(f"GTM snippet geinjecteerd met {CID}")
