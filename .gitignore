@@ -1,0 +1,8 @@
+# Geheimen nooit committen
+.env
+.env.local
+
+# Afval
+.DS_Store
+Thumbs.db
+*.log
