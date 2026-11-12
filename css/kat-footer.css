@@ -11,6 +11,12 @@
   --cat-paper: #f0f2f5;
   --cat-fill: #1b2030;
 }
+/* Fallback voor oudere mobiele browsers zonder ondersteuning voor aspect-ratio. */
+.cat-scene::before {
+  content: "";
+  display: block;
+  padding-top: 51.5625%;
+}
 .cat-scene::after {
   content: "";
   position: absolute;
@@ -65,3 +71,25 @@
 .cat-scene .btn-outline:focus-visible { outline-offset: -4px; }
 .cat-box { fill: var(--bg-soft); stroke: var(--accent); stroke-width: 5; }
 .cat-box-detail { fill: none; stroke: var(--accent); stroke-width: 3; }
+
+@media (max-width: 700px) {
+  .cat-scene {
+    width: calc(100% + 3rem);
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .cat-scene {
+    height: 330px;
+    aspect-ratio: auto;
+  }
+  .cat-scene::before { padding-top: 0; }
+  .cat-art {
+    inset: 0 auto auto 50%;
+    width: 640px;
+    height: 330px;
+    transform: translateX(-50%);
+  }
+}

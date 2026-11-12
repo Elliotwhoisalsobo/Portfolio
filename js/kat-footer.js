@@ -117,7 +117,7 @@
 
   function measure() {
     const rect = scene.getBoundingClientRect();
-    scale = rect.width / 640;
+    scale = back.getBoundingClientRect().width / 640;
     // Op mobiel begint het optillen pas wanneer de scène de onderrand bereikt.
     range = Math.max(1, Math.min(480, document.documentElement.scrollHeight - scrollY - rect.top));
     scene.dataset.scrollRange = String(range);

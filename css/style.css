@@ -320,7 +320,7 @@ a:hover { color: var(--ink); }
   .hero { padding: 3rem 0 2rem; }
   .section { padding: 2.25rem 0; }
   .projects { grid-template-columns: 1fr; }
-  .about-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; row-gap: 4.5rem; }
 
   .nav-toggle { display: block; }
   .nav-links {
