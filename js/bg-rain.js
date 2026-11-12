@@ -1,7 +1,9 @@
 // Achtergrond: subtiele paarse regenstrepen met Three.js
 // Geen LineBasicMaterial: die is altijd 1px dik in WebGL.
 // Daarom quads (2 driehoeken per streep), zodat de dikte instelbaar is.
-const AANTAL = 50;        // aantal strepen, bewust schaars
+const AANTAL = 50;
+const MOBIEL_AANTAL = 18;
+const MOBIEL = matchMedia("(max-width: 700px)");
 const KLEUR = 0x8b7cff;   // accent violet uit style.css
 
 const scene = new THREE.Scene();
@@ -16,6 +18,7 @@ document.getElementById("bg-app").appendChild(renderer.domElement);
 const posities = new Float32Array(AANTAL * 18);
 const geometry = new THREE.BufferGeometry();
 geometry.setAttribute("position", new THREE.BufferAttribute(posities, 3));
+geometry.setDrawRange(0, (MOBIEL.matches ? MOBIEL_AANTAL : AANTAL) * 6);
 const materiaal = new THREE.MeshBasicMaterial({ color: KLEUR, transparent: true, opacity: 0.25 });
 scene.add(new THREE.Mesh(geometry, materiaal));
 
@@ -58,6 +61,7 @@ function formaat() {
   camera.bottom = innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
+  geometry.setDrawRange(0, (MOBIEL.matches ? MOBIEL_AANTAL : AANTAL) * 6);
 }
 addEventListener("resize", formaat);
 
