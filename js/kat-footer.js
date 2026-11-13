@@ -26,6 +26,14 @@
   };
   const back = svg("svg", { class: "cat-art", viewBox: "0 0 640 330", "aria-hidden": "true", focusable: "false" }, scene);
   const front = svg("svg", { class: "cat-art cat-art--front", viewBox: "0 0 640 330", "aria-hidden": "true", focusable: "false" }, scene);
+  const ouch = svg("text", { x: 382, y: 166, class: "cat-ouch-text" }, front);
+  ouch.textContent = "Boop!";
+  const boop = document.createElement("button");
+  boop.type = "button";
+  boop.className = "cat-boop";
+  boop.setAttribute("aria-label", "Geef de kat een neusduwtje");
+  boop.disabled = true;
+  scene.append(boop);
   const clamp = (value) => Math.max(0, Math.min(1, value));
   const ease = (value) => { const p = clamp(value); return p * p * (3 - 2 * p); };
   const ramp = (p, start, end) => ease((p - start) / (end - start));
@@ -45,7 +53,7 @@
 
   function makeCat(color, expression) {
     const group = svg("g", { style: `--cat-paper:${color}` }, back);
-    const paws = svg("g", { style: `--cat-paper:${color}` }, front);
+    const paws = svg("g", { class: "cat-paws", style: `--cat-paper:${color}` }, front);
     const tail = svg("g", {}, group);
     const tailPath = "M28 -24H66V-32H80V-66H72V-78H52V-70H48V-54H58";
     svg("path", { d: tailPath, class: "cat-stroke" }, tail);
@@ -53,11 +61,13 @@
     const body = svg("path", { class: "cat-shape" }, group);
     const feet = svg("g", { class: "cat-feet" }, group);
     for (const x of [-34, 10]) svg("path", { d: `M${x} -12h24v12h-32v-6h8Z`, class: "cat-shape" }, feet);
+    const armLayer = svg("g", { class: "cat-arms" }, group);
     const arms = [-1, 1].map(() => ({
-      edge: svg("path", { class: "cat-stroke" }, group),
-      inside: svg("path", { class: "cat-stroke-inner" }, group),
+      edge: svg("path", { class: "cat-stroke" }, armLayer),
+      inside: svg("path", { class: "cat-stroke-inner" }, armLayer),
     }));
-    const head = svg("g", {}, group);
+    const headAnchor = svg("g", {}, group);
+    const head = svg("g", { class: "cat-head" }, headAnchor);
     svg("path", {
       d: "M-50 24V-22H-44V-50H-32V-44H-24V-34H-16V-26H16V-34H24V-44H32V-50H44V-22H50V24H42V34H-42V24Z",
       class: "cat-shape",
@@ -79,7 +89,7 @@
       svg("path", { d: "M-5-4V2M5-4V2", fill: "none", stroke: color, "stroke-width": 2 }, paw);
       return paw;
     });
-    return { group, tail, body, feet, arms, head, eyes, hands };
+    return { group, tail, body, feet, arms, headAnchor, eyes, hands };
   }
 
   function drawCat(cat, { x, floor, face, hands, scale = 1, tilt = 0, wag = 0, look = 0 }) {
@@ -88,7 +98,7 @@
     cat.body.setAttribute("d", `M${x - 25 * scale} ${shoulder - 8 * scale}H${x + 25 * scale}L${x + 34 * scale} ${hip}V${floor - 5 * scale}H${x - 34 * scale}V${hip}Z`);
     cat.feet.setAttribute("transform", `translate(${x} ${floor}) scale(${scale})`);
     cat.tail.setAttribute("transform", `translate(${x} ${floor}) scale(${scale}) rotate(${wag} 30 -24)`);
-    cat.head.setAttribute("transform", `translate(${x} ${face}) scale(${scale}) rotate(${tilt})`);
+    cat.headAnchor.setAttribute("transform", `translate(${x} ${face}) scale(${scale}) rotate(${tilt})`);
     cat.eyes.setAttribute("transform", `translate(${look} 0)`);
     for (let i = 0; i < 2; i++) {
       const side = i === 0 ? -1 : 1;
@@ -108,6 +118,12 @@
   const flaps = [svg("path", { class: "cat-box" }, box), svg("path", { class: "cat-box" }, box)];
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  boop.addEventListener("click", () => {
+    if (boop.disabled) return;
+    scene.classList.remove("is-booped");
+    void scene.offsetWidth;
+    scene.classList.add("is-booped");
+  });
   let scale = 1;
   let trayHeight = 64;
   let previous = -1;
@@ -133,6 +149,10 @@
     links.style.setProperty("--lift", `${top * scale}px`);
     const bottom = top + trayHeight;
     const reveal = ramp(p, 0.1, 0.76);
+    const canBoop = reveal >= 1;
+    boop.disabled = !canBoop;
+    scene.classList.toggle("is-boopable", canBoop);
+    if (!canBoop) scene.classList.remove("is-booped");
     drawCat(cats[0], {
       x: 320, floor: 326,
       face: mix(365, Math.max(158, bottom + 60), reveal),

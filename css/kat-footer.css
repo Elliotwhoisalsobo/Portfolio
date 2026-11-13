@@ -1,5 +1,5 @@
 /* Scène met de dooskat in de contactsectie. */
-.contact.has-cat-footer { padding-bottom: 0; }
+.contact.has-cat-footer { padding-bottom: 1.5rem; }
 .cat-scene {
   position: relative;
   width: min(100%, 720px);
@@ -17,15 +17,6 @@
   display: block;
   padding-top: 51.5625%;
 }
-.cat-scene::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 12%;
-  right: 12%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-}
 .cat-art {
   position: absolute;
   inset: 0;
@@ -36,6 +27,59 @@
   z-index: 1;
 }
 .cat-art--front { z-index: 3; }
+.cat-boop {
+  position: absolute;
+  z-index: 4;
+  top: 52.7%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+}
+.cat-scene.is-boopable .cat-boop { cursor: pointer; pointer-events: auto; }
+.cat-boop:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cat-head,
+.cat-arms,
+.cat-paws,
+.cat-ouch-text {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cat-scene.is-booped .cat-head { animation: cat-head-ouch 520ms ease-out; }
+.cat-scene.is-booped .cat-arms,
+.cat-scene.is-booped .cat-paws,
+.cat-scene.is-booped .contact-list { animation: cat-bar-shake 520ms ease-out; }
+.cat-ouch-text {
+  fill: var(--accent);
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 700;
+  opacity: 0;
+}
+.cat-scene.is-booped .cat-ouch-text { animation: cat-ouch-text 700ms ease-out; }
+@keyframes cat-head-ouch {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  24% { transform: translateX(14px) rotate(16deg); }
+  48% { transform: translateX(-5px) rotate(-6deg); }
+  70% { transform: translateX(3px) rotate(3deg); }
+}
+@keyframes cat-bar-shake {
+  0%, 100% { translate: 0 0; }
+  22% { translate: -7px 2px; }
+  42% { translate: 6px -1px; }
+  60% { translate: -4px 1px; }
+  78% { translate: 2px 0; }
+}
+@keyframes cat-ouch-text {
+  0% { opacity: 0; transform: translateY(8px) rotate(0); }
+  20%, 65% { opacity: 1; transform: translate(8px, 0) rotate(10deg); }
+  100% { opacity: 0; transform: translate(14px, -10px) rotate(14deg); }
+}
 .cat-shape { fill: var(--cat-fill); stroke: var(--cat-paper); stroke-width: 5; stroke-linejoin: miter; }
 .cat-stroke { fill: none; stroke: var(--cat-paper); stroke-width: 13; stroke-linejoin: miter; stroke-linecap: square; }
 .cat-stroke-inner { fill: none; stroke: var(--cat-fill); stroke-width: 5; stroke-linejoin: miter; stroke-linecap: square; }
@@ -71,6 +115,13 @@
 .cat-scene .btn-outline:focus-visible { outline-offset: -4px; }
 .cat-box { fill: var(--bg-soft); stroke: var(--accent); stroke-width: 5; }
 .cat-box-detail { fill: none; stroke: var(--accent); stroke-width: 3; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-scene.is-booped .cat-head,
+  .cat-scene.is-booped .cat-arms,
+  .cat-scene.is-booped .cat-paws,
+  .cat-scene.is-booped .contact-list { animation: none; }
+}
 
 @media (max-width: 700px) {
   .cat-scene {
