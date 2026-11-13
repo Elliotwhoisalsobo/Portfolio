@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varianten voor het kattenlabel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Press+Start+2P&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121725;
+      --surface: #1b2030;
+      --box: #252c3e;
+      --line: #414b62;
+      --ink: #f0f2f5;
+      --muted: #aeb7c8;
+      --accent: #8b7cff;
+      --accent-deep: #5b4bcc;
+      --cyan: #4dd6e8;
+      --gold: #e2b455;
+      --pixel: "Press Start 2P", "Courier New", monospace;
+      --mono: "IBM Plex Mono", monospace;
+      --sans: "Space Grotesk", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(139, 124, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 124, 255, 0.08) 1px, transparent 1px),
+        var(--bg);
+      background-size: 32px 32px;
+      font-family: var(--sans);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    header {
+      max-width: 720px;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    header p:last-child {
+      max-width: 620px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    article {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #242b3b, var(--surface));
+      box-shadow: 0 5px 0 #0c101b, 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .number {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+
+    .stage {
+      min-height: 236px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid #30394f;
+      border-radius: 10px;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(139, 124, 255, 0.12), transparent 48%),
+        #171c2a;
+    }
+
+    .parcel {
+      position: relative;
+      width: 260px;
+      height: 142px;
+      display: grid;
+      place-items: center;
+      border: 6px solid var(--accent);
+      background: var(--box);
+      box-shadow: 0 7px 0 var(--accent-deep);
+    }
+
+    .parcel::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      width: 52px;
+      height: 31px;
+      transform: translateX(-50%);
+      border: 4px solid var(--accent);
+      border-top: 0;
+      background: var(--surface);
+    }
+
+    .parcel::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(240, 242, 245, 0.05);
+      pointer-events: none;
+    }
+
+    .label {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      font-family: var(--pixel);
+      text-align: center;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    .label span { display: block; }
+
+    .label-inset {
+      width: 156px;
+      min-height: 64px;
+      padding: 10px 12px;
+      border: 3px solid var(--accent);
+      background: var(--surface);
+      clip-path: polygon(8px 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, 100% 4px, 100% calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 4px), 0 calc(100% - 4px), 0 4px, 8px 4px);
+      font-size: 0.66rem;
+    }
+
+    .label-tape {
+      width: 214px;
+      min-height: 48px;
+      padding: 11px 10px 9px;
+      transform: rotate(-2deg);
+      background: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 5px 0 var(--accent-deep);
+      font-size: 0.62rem;
+      white-space: nowrap;
+    }
+
+    .label-tape::before,
+    .label-tape::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 12px;
+      height: 100%;
+      background: repeating-linear-gradient(0deg, transparent 0 7px, rgba(27, 32, 48, 0.24) 7px 10px);
+    }
+
+    .label-tape::before { left: 0; }
+    .label-tape::after { right: 0; }
+
+    .label-ears {
+      width: 154px;
+      min-height: 62px;
+      margin-top: 8px;
+      padding: 12px 10px 8px;
+      border: 3px solid var(--accent);
+      background: #202638;
+      font-size: 0.64rem;
+    }
+
+    .label-ears::before,
+    .label-ears::after {
+      content: "";
+      position: absolute;
+      top: -21px;
+      width: 30px;
+      height: 22px;
+      background: var(--accent);
+      clip-path: polygon(0 100%, 18% 0, 100% 100%);
+    }
+
+    .label-ears::before { left: 13px; }
+    .label-ears::after { right: 13px; transform: scaleX(-1); }
+
+    .label-ears .inner {
+      position: absolute;
+      inset: 4px;
+      z-index: -1;
+      background: var(--surface);
+    }
+
+    .label-express {
+      width: 190px;
+      min-height: 58px;
+      padding: 12px 14px 10px;
+      border-top: 4px solid var(--cyan);
+      border-right: 4px solid var(--accent);
+      border-bottom: 4px solid var(--accent);
+      border-left: 4px solid var(--cyan);
+      background: var(--surface);
+      box-shadow: 5px 5px 0 rgba(77, 214, 232, 0.24);
+      font-size: 0.6rem;
+      white-space: nowrap;
+    }
+
+    .label-express::before,
+    .label-express::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 20px;
+      height: 4px;
+      background: var(--cyan);
+    }
+
+    .label-express::before { left: -14px; transform: translate(-100%, -50%); }
+    .label-express::after { right: -14px; transform: translate(100%, -50%); }
+
+    .label-stamp {
+      width: 178px;
+      min-height: 72px;
+      padding: 12px;
+      transform: rotate(2deg);
+      border: 3px dashed var(--accent);
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      color: var(--accent);
+      background: rgba(27, 32, 48, 0.72);
+      font-size: 0.66rem;
+    }
+
+    .label-stamp::before,
+    .label-stamp::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--cyan);
+      box-shadow: 10px 0 var(--cyan), 20px 0 var(--cyan);
+    }
+
+    .label-stamp::before { top: 7px; left: 9px; }
+    .label-stamp::after { right: 29px; bottom: 7px; }
+
+    .label-barcode {
+      width: 184px;
+      min-height: 78px;
+      align-content: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 2px solid var(--line);
+      background: #202638;
+      font-size: 0.56rem;
+      white-space: nowrap;
+    }
+
+    .barcode {
+      width: 142px;
+      height: 20px;
+      background: repeating-linear-gradient(90deg, var(--accent) 0 3px, transparent 3px 6px, var(--cyan) 6px 8px, transparent 8px 12px);
+    }
+
+    .note {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      main { padding-top: 36px; }
+      .grid { grid-template-columns: 1fr; }
+      article { padding: 16px; }
+      .stage { min-height: 220px; }
+      .parcel { transform: scale(0.9); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Ontwerpblad</p>
+      <h1>Varianten voor het kattenlabel</h1>
+      <p>Zes richtingen die binnen de donkere pixelstijl van de website blijven. Elke versie gebruikt dezelfde tekst: CAT DELIVERY.</p>
+    </header>
+
+    <section class="grid" aria-label="Labelvarianten">
+      <article>
+        <div class="meta">
+          <h2>Ingebouwd pixelpaneel</h2>
+          <span class="number">01</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-inset"><span>CAT</span><span>DELIVERY</span></div>
+          </div>
+        </div>
+        <p class="note">Rustig en duidelijk. De afgesneden hoeken sluiten aan op de huidige pixelvormen.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>Paarse pakketband</h2>
+          <span class="number">02</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-tape">CAT DELIVERY</div>
+          </div>
+        </div>
+        <p class="note">Meer kleur en beweging. De lichte draai maakt het minder netjes en daardoor speelser.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>Label met kattenoren</h2>
+          <span class="number">03</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-ears"><span class="inner"></span><span>CAT</span><span>DELIVERY</span></div>
+          </div>
+        </div>
+        <p class="note">De oren maken het label herkenbaar zonder een extra illustratie op de doos te zetten.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>Cyaan expresslabel</h2>
+          <span class="number">04</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-express">CAT DELIVERY</div>
+          </div>
+        </div>
+        <p class="note">Gebruikt de tweede accentkleur van de website en voelt sneller en technischer.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>Scheve pixelstempel</h2>
+          <span class="number">05</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-stamp"><span>CAT</span><span>DELIVERY</span></div>
+          </div>
+        </div>
+        <p class="note">Lijkt op een stempel die met de hand op de doos is gezet. De kleine cyaan blokjes breken het paars.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>Label met pixelbarcode</h2>
+          <span class="number">06</span>
+        </div>
+        <div class="stage">
+          <div class="parcel">
+            <div class="label label-barcode"><span>CAT DELIVERY</span><span class="barcode" aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <p class="note">Voelt het meest als een echt pakketlabel, met genoeg kleur om bij de rest van de pagina te passen.</p>
+      </article>
+    </section>
+
+    <footer>Los ontwerpblad. Dit bestand wijzigt de actieve kattenanimatie niet.</footer>
+  </main>
+</body>
+</html>

@@ -82,6 +82,7 @@
     } else {
       svg("path", { d: "M-30 1h18v5h-18ZM12 1h18v5H12Z", class: "cat-detail" }, eyes);
     }
+    svg("path", { d: "M-9 14C-25 11-44 3-61 8M-10 19C-29 16-48 19-64 27M-9 24C-26 29-43 38-57 46M9 14C25 11 44 3 61 8M10 19C29 16 48 19 64 27M9 24C26 29 43 38 57 46", class: "cat-whiskers" }, head);
     svg("path", { d: "M-4 12H4V16H2V20H-2V16H-4Z", class: "cat-accent" }, head);
     const hands = [-1, 1].map(() => {
       const paw = svg("g", {}, paws);
@@ -114,15 +115,54 @@
   const cats = [makeCat("#f0f2f5", "blij")];
   const box = svg("g", {}, front);
   svg("path", { d: "M230 230H410V326H230Z", class: "cat-box" }, box);
-  svg("path", { d: "M300 230V254H340V230M250 304H278", class: "cat-box-detail" }, box);
-  const flaps = [svg("path", { class: "cat-box" }, box), svg("path", { class: "cat-box" }, box)];
+  svg("path", { d: "M300 230V254H340V230", class: "cat-box-detail" }, box);
+  const flaps = [
+    svg("path", { class: "cat-box", "stroke-linejoin": "bevel" }, box),
+    svg("path", { class: "cat-box", "stroke-linejoin": "bevel" }, box),
+  ];
+  const labelWidth = 166;
+  const label = svg("g", { class: "cat-box-label", transform: "translate(237 270) rotate(-2 83 17)" }, box);
+  svg("rect", { x: 0, y: 4, width: labelWidth, height: 34, class: "cat-box-label-shadow" }, label);
+  svg("rect", { x: 0, y: 0, width: labelWidth, height: 34, class: "cat-box-label-paper" }, label);
+  svg("path", { d: "M3 6H7V9H3ZM3 13H7V16H3ZM3 20H7V23H3ZM3 27H7V30H3ZM159 6H163V9H159ZM159 13H163V16H159ZM159 20H163V23H159ZM159 27H163V30H159Z", class: "cat-box-label-edge" }, label);
+  const labelGlyphs = {
+    A: "01110/10001/10001/11111/10001/10001/10001",
+    C: "01111/10000/10000/10000/10000/10000/01111",
+    D: "11110/10001/10001/10001/10001/10001/11110",
+    E: "11111/10000/10000/11110/10000/10000/11111",
+    I: "11111/00100/00100/00100/00100/00100/11111",
+    L: "10000/10000/10000/10000/10000/10000/11111",
+    R: "11110/10001/10001/11110/10100/10010/10001",
+    T: "11111/00100/00100/00100/00100/00100/00100",
+    V: "10001/10001/10001/10001/10001/01010/00100",
+    Y: "10001/10001/01010/00100/00100/00100/00100",
+  };
+  console.assert([..."CATDELIVERY"].every((letter) => labelGlyphs[letter]), "Lettertype voor kattenlabel mist een teken.");
+  function drawLabelText(text, y) {
+    const pixel = 2;
+    const advance = 12;
+    const start = (labelWidth - (text.length * advance - pixel)) / 2;
+    let d = "";
+    for (let letter = 0; letter < text.length; letter++) {
+      const rows = labelGlyphs[text[letter]]?.split("/");
+      if (!rows) continue;
+      for (let row = 0; row < rows.length; row++) {
+        for (let column = 0; column < rows[row].length; column++) {
+          if (rows[row][column] === "1") d += `M${start + letter * advance + column * pixel} ${y + row * pixel}h${pixel}v${pixel}h-${pixel}Z`;
+        }
+      }
+    }
+    svg("path", { d, class: "cat-box-label-text" }, label);
+  }
+  drawLabelText("CAT DELIVERY", 10);
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
-  boop.addEventListener("click", () => {
+  boop.addEventListener("click", (event) => {
     if (boop.disabled) return;
     scene.classList.remove("is-booped");
     void scene.offsetWidth;
     scene.classList.add("is-booped");
+    if (event.detail > 0) boop.blur();
   });
   let scale = 1;
   let trayHeight = 64;
