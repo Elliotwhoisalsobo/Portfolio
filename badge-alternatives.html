@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Varianten voor de projectlabels</title>
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Press+Start+2P&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #121725;
+      --surface: #1b2030;
+      --box: #252c3e;
+      --line: #414b62;
+      --ink: #f0f2f5;
+      --muted: #aeb7c8;
+      --accent: #8b7cff;
+      --accent-deep: #5b4bcc;
+      --cyan: #4dd6e8;
+      --gold: #e2b455;
+      --pixel: "Press Start 2P", "Courier New", monospace;
+      --mono: "IBM Plex Mono", monospace;
+      --sans: "Space Grotesk", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(139, 124, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 124, 255, 0.08) 1px, transparent 1px),
+        var(--bg);
+      background-size: 32px 32px;
+      font-family: var(--sans);
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 72px;
+    }
+
+    header {
+      max-width: 720px;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    header p:last-child {
+      max-width: 620px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 1.04rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    article {
+      min-width: 0;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: linear-gradient(180deg, #242b3b, var(--surface));
+      box-shadow: 0 5px 0 #0c101b, 0 18px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .number {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.78rem;
+    }
+
+    .stage {
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      align-content: center;
+      min-height: 132px;
+      overflow: hidden;
+      border: 1px solid #30394f;
+      border-radius: 10px;
+      background:
+        radial-gradient(circle at 50% 15%, rgba(139, 124, 255, 0.12), transparent 48%),
+        #171c2a;
+    }
+
+    .note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    /* ============ 0. De huidige pill, ter referentie ============ */
+    .tag-pill {
+      font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #b8aeff;
+      background: linear-gradient(180deg, rgba(139, 124, 255, 0.16), rgba(139, 124, 255, 0.08));
+      border: 1px solid rgba(139, 124, 255, 0.28);
+      padding: 0.22rem 0.55rem; border-radius: 99px; white-space: nowrap;
+    }
+
+    /* ============ 1. 3D extrusie, zoals de knoppen in het thema ============ */
+    .tag-3d {
+      font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 600; color: var(--ink);
+      background: var(--accent);
+      padding: 0.3rem 0.65rem; border-radius: 8px; white-space: nowrap;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 3px 0 var(--accent-deep), 0 6px 14px rgba(0, 0, 0, 0.4);
+    }
+    .tag-3d.private {
+      background: var(--gold); color: #1b2030;
+      box-shadow: 0 3px 0 #8a6a2f, 0 6px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ============ 2. Pixel badge, verwant aan de kat ============ */
+    .tag-pixel {
+      font-family: var(--pixel); font-size: 0.55rem; color: var(--cyan);
+      background: #171c2a;
+      border: 2px solid var(--cyan);
+      padding: 0.4rem 0.55rem; white-space: nowrap;
+      box-shadow: inset 0 0 0 2px #171c2a, 0 3px 0 #0c101b;
+    }
+    .tag-pixel.private { color: var(--gold); border-color: var(--gold); }
+
+    /* ============ 3. Terminalhaakjes ============ */
+    .tag-bracket {
+      font-family: var(--mono); font-size: 0.78rem; font-weight: 500;
+      color: var(--cyan); padding: 0.18rem 0; white-space: nowrap;
+    }
+    .tag-bracket::before { content: "[ "; color: var(--accent); }
+    .tag-bracket::after { content: " ]"; color: var(--accent); }
+    .tag-bracket.private { color: var(--gold); }
+    .tag-bracket.private::before,
+    .tag-bracket.private::after { color: #a08a5a; }
+
+    /* ============ 4. Slash prefix, zoals comment in code ============ */
+    .tag-slash {
+      font-family: var(--mono); font-size: 0.78rem; color: var(--muted);
+      padding: 0.1rem 0; white-space: nowrap;
+    }
+    .tag-slash::before { content: "// "; color: var(--accent); font-weight: 600; }
+    .tag-slash.private::before { color: var(--gold); }
+
+    /* ============ 5. Statuschip met indicatorknop ============ */
+    .tag-chip {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--ink);
+      background: var(--box);
+      border: 1px solid var(--line);
+      padding: 0.25rem 0.6rem; border-radius: 6px; white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 3px 0 #0c101b;
+    }
+    .tag-chip .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 6px rgba(77, 214, 232, 0.8);
+    }
+    .tag-chip.private .dot { background: var(--gold); box-shadow: 0 0 6px rgba(226, 180, 85, 0.8); }
+
+    /* ============ 6. Label met Phosphor icoon ============ */
+    .tag-icon {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--sans); font-size: 0.8rem; font-weight: 600; color: var(--ink);
+      background: linear-gradient(180deg, #2a3145, var(--box));
+      border: 1px solid var(--line);
+      padding: 0.25rem 0.6rem; border-radius: 99px; white-space: nowrap;
+      box-shadow: 0 3px 0 #0c101b;
+    }
+    .tag-icon i { font-size: 0.95rem; color: var(--accent); }
+    .tag-icon.private i { color: var(--gold); }
+
+    /* ============ 7. Gestipt kadertje ============ */
+    .tag-wire {
+      font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--muted);
+      border: 1px dashed var(--line);
+      padding: 0.24rem 0.6rem; white-space: nowrap;
+    }
+    .tag-wire.private { color: var(--gold); border-color: rgba(226, 180, 85, 0.5); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Depth portfolio</p>
+      <h1>Varianten voor de projectlabels</h1>
+      <p>Acht stijlen voor de categorielabels op de projectkaarten zoals Startup, Research en Full stack. Elk ontwerp toont alle acht labels, met markers voor de private projecten waar de gouden kleur zou worden gebruikt.</p>
+    </header>
+
+    <div class="grid">
+
+      <article>
+        <div class="meta">
+          <h2>0. Nulmeting: de huidige pill</h2>
+          <span class="number"> encore / 01</span>
+        </div>
+        <div class="stage">
+          <span class="tag-pill">Startup</span>
+          <span class="tag-pill">Research</span>
+          <span class="tag-pill">Full stack</span>
+          <span class="tag-pill">Desktop app</span>
+          <span class="tag-pill">Applied research</span>
+        </div>
+        <p class="note">De variant die net verwijderd is, als vergelijkingspunt.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>1. 3D extrusie</h2>
+          <span class="number"> extrude / 02</span>
+        </div>
+        <div class="stage">
+          <span class="tag-3d">Startup</span>
+          <span class="tag-3d">Research</span>
+          <span class="tag-3d">Full stack</span>
+          <span class="tag-3d">Desktop app</span>
+          <span class="tag-3d private">Applied research</span>
+          <span class="tag-3d private">Hackathon</span>
+        </div>
+        <p class="note">Volgt de knoppen van het thema: onderrand als donkere zijkant. Massiever dan een pill, past bij de geëxtrudeerde kaarten.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>2. Pixel badge</h2>
+          <span class="number"> pixel / 03</span>
+        </div>
+        <div class="stage">
+          <span class="tag-pixel">startup</span>
+          <span class="tag-pixel">research</span>
+          <span class="tag-pixel">full stack</span>
+          <span class="tag-pixel">desktop app</span>
+          <span class="tag-pixel private">data product</span>
+        </div>
+        <p class="note">In Press Start 2P, hetzelfde lettertype als de pixelkat in de footer. Kleine letters worden in dit lettertype kleine kapitalen, dat past bij de pixelstijl.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>3. Terminalhaakjes</h2>
+          <span class="number"> bracket / 04</span>
+        </div>
+        <div class="stage">
+          <span class="tag-bracket">startup</span>
+          <span class="tag-bracket">research</span>
+          <span class="tag-bracket">full stack</span>
+          <span class="tag-bracket">desktop app</span>
+          <span class="tag-bracket private">applied research</span>
+        </div>
+        <p class="note">Geen kadertje, alleen typografie. De [ haakjes ] spelen in op de developer look: klein en mono.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>4. Slash prefix</h2>
+          <span class="number"> slash / 05</span>
+        </div>
+        <div class="stage">
+          <span class="tag-slash">startup</span>
+          <span class="tag-slash">research</span>
+          <span class="tag-slash">full stack</span>
+          <span class="tag-slash">desktop app</span>
+          <span class="tag-slash private">data engineering</span>
+        </div>
+        <p class="note">Zelfde trant als comment in code. // waarschijnlijk het subtielste ontwerp, blijft onder de inhoud.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>5. Statuschip</h2>
+          <span class="number"> status / 06</span>
+        </div>
+        <div class="stage">
+          <span class="tag-chip"><span class="dot"></span>Startup</span>
+          <span class="tag-chip"><span class="dot"></span>Research</span>
+          <span class="tag-chip"><span class="dot"></span>Full stack</span>
+          <span class="tag-chip private"><span class="dot"></span>Applied research</span>
+        </div>
+        <p class="note">Chip met een oplichtende knop, de knop is cyan voor publieke en goud voor private projecten. Werkt alleen goed als hij iets betekent.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>6. Met Phosphor icoon</h2>
+          <span class="number"> icon / 07</span>
+        </div>
+        <div class="stage">
+          <span class="tag-icon"><i class="ph ph-rocket-launch"></i>Startup</span>
+          <span class="tag-icon"><i class="ph ph-flask"></i>Research</span>
+          <span class="tag-icon"><i class="ph ph-layers"></i>Full stack</span>
+          <span class="tag-icon"><i class="ph ph-desktop"></i>Desktop app</span>
+          <span class="tag-icon private"><i class="ph ph-lock-simple"></i>Data product</span>
+        </div>
+        <p class="note">Nog steeds een pill, maar met een Phosphor icoon dat per categorie verschilt. Het icoon zegt genoeg, je zou de tekst hier ook weg kunnen laten.</p>
+      </article>
+
+      <article>
+        <div class="meta">
+          <h2>7. Gestipt kadertje</h2>
+          <span class="number"> wire / 08</span>
+        </div>
+        <div class="stage">
+          <span class="tag-wire">Startup</span>
+          <span class="tag-wire">Research</span>
+          <span class="tag-wire">Full stack</span>
+          <span class="tag-wire">Desktop app</span>
+          <span class="tag-wire private">Hackathon</span>
+        </div>
+        <p class="note">Gestipte rand in plaats van een solide kadertje. Dit ontwerp trekt het minste aandacht van allemaal, eerder iets dat op de achtergrond blijft.</p>
+      </article>
+
+    </div>
+  </main>
+</body>
+</html>
