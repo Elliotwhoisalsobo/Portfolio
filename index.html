@@ -30,7 +30,7 @@
 
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <!-- <header class="site-header">
     <div class="container header-inner">
       <a href="#top" class="wordmark">Bo Vermote</a>
       <nav aria-label="Main">
@@ -44,7 +44,7 @@
         </ul>
       </nav>
     </div>
-  </header>
+  </header> -->
 
   <main id="main">
 
@@ -57,7 +57,8 @@
           selection of research projects, web applications and tools I’ve built.
         </p>
         <ul class="hero-links">
-          <li><a href="#work" class="btn-accent">Explore projects <i class="ph ph-arrow-down-right"></i></a></li>
+          <li><a href="#work" class="btn-accent">Explore projects</a></li>
+          <li><a href="#contact" class="btn-accent">Contact</a></li>
         </ul>
 
       </div>
@@ -75,13 +76,12 @@
               I went from presenting research at my university’s expertise centre
               to freelance data research at an AI startup in Ghent’s Wintercircus.
               I also teach kids to code at CodeFever and joined a public speaking
-              club to improve my communication skills.
+              club.
             </p>
             <p>
-              In 2026, I started my own company. I’m building LexVind, helping law
-              firms get discovered through AI agents, and an AI salary recommender
-              offering realistic, data backed pay ranges for IT &amp; data
-              professionals.
+              In 2026, I started my own company. I do various freelance IT
+              projects, from performing research to building end-to-end data
+              platforms.
             </p>
             <p>
               <span class="about-punch punch-marker">All of it while studying full time.</span>
@@ -148,7 +148,29 @@
 
         <div class="work-split">
         <div class="work-col">
-        <p class="group-label"><i class="ph ph-globe"></i> Public</p>
+        <!-- Projectkat tijdelijk uitgeschakeld. Voeg bij herstel work-col-cat toe aan de kolom.
+        <svg class="project-cat" xmlns="http://www.w3.org/2000/svg" width="462" height="1016" viewBox="0 0 462 1016" aria-hidden="true" focusable="false">
+          <defs>
+            <clipPath id="project-cat-head-clip">
+              <rect width="462" height="320"/>
+            </clipPath>
+            <clipPath id="project-cat-tail-clip">
+              <path d="M330 490H462V920H365V820L378 802V715L330 647Z"/>
+            </clipPath>
+            <clipPath id="project-cat-body-clip">
+              <path clip-rule="evenodd" d="M0 320H462V1016H0ZM330 490H462V920H365V820L378 802V715L330 647Z"/>
+            </clipPath>
+          </defs>
+          <g class="project-cat-tail">
+            <image href="img/project-cat.png" width="462" height="1016" clip-path="url(#project-cat-tail-clip)"/>
+          </g>
+          <image href="img/project-cat.png" width="462" height="1016" clip-path="url(#project-cat-body-clip)"/>
+          <g class="project-cat-head">
+            <image href="img/project-cat.png" width="462" height="1016" clip-path="url(#project-cat-head-clip)"/>
+          </g>
+        </svg>
+        -->
+        <p class="group-label"><i class="ph ph-globe"></i> Public <!-- <button class="cat-motion-toggle" type="button" aria-label="Kattenanimatie pauzeren" aria-pressed="false" hidden><i class="ph ph-pause" aria-hidden="true"></i></button> --></p>
         <div class="projects">
 
           <article class="project reveal">
@@ -242,6 +264,9 @@
               entrepreneurship research at Thomas More university. Presented
               my own analysis and conclusions.
             </p>
+            <div class="p-links">
+              <a class="p-link" href="https://thomasmore.be/nl/onderzoek/projecten/lokimpact" target="_blank" rel="noopener"><i class="ph ph-arrow-up-right" aria-hidden="true"></i> Info</a>
+            </div>
             <ul class="p-tags">
               <li>Python</li><li>Statistics</li><li>Jupyter Notebook</li>
             </ul>
@@ -335,6 +360,7 @@
   <script src="https://unpkg.com/three@0.149.0/build/three.min.js" defer></script>
   <script src="js/bg-rain.js" defer></script>
   <script src="js/main.js"></script>
+  <!-- <script src="js/project-cat.js" defer></script> -->
   <script src="js/kat-footer.js" defer></script>
   <script src="js/favicon.js" defer></script>
 </body>

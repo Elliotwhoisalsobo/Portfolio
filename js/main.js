@@ -1,10 +1,12 @@
 // Depth-design: mobiel menu, scroll-reveal, jaartal
 const navToggle = document.getElementById("navToggle");
 const navLinks = document.getElementById("navLinks");
-navToggle.addEventListener("click", () => {
-  const open = navLinks.classList.toggle("open");
-  navToggle.setAttribute("aria-expanded", open);
-});
+if (navToggle && navLinks) {
+  navToggle.addEventListener("click", () => {
+    const open = navLinks.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open);
+  });
+}
 
 if (matchMedia("(prefers-reduced-motion: no-preference)").matches) {
   const io = new IntersectionObserver(
@@ -48,8 +50,8 @@ const controleerContact = () => {
   }, 150);
 };
 document.querySelector('a[href="#contact"]').addEventListener("click", () => {
-  navLinks.classList.remove("open");
-  navToggle.setAttribute("aria-expanded", "false");
+  if (navLinks) navLinks.classList.remove("open");
+  if (navToggle) navToggle.setAttribute("aria-expanded", "false");
   wachtOpContact();
 });
 if (location.hash === "#contact") wachtOpContact();
